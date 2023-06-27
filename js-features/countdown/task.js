@@ -11,4 +11,4 @@ function countdown() {
     }
 }
 
-timerId = setInterval(countdown, 50);
+timerId = setInterval(countdown, 1000);
