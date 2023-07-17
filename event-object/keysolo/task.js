@@ -15,18 +15,24 @@ class Game {
     this.winsElement.textContent = 0;
     this.lossElement.textContent = 0;
   }
+  
 
   registerEvents() {
-    /*
-      TODO:
-      Написать обработчик события, который откликается
-      на каждый введённый символ.
-      В случае правильного ввода слова вызываем this.success()
-      При неправильном вводе символа - this.fail();
-      DOM-элемент текущего символа находится в свойстве this.currentSymbol.
-     */
+    let check = (event) =>{
+      let  letter = this.currentSymbol.textContent.toLowerCase();
+      if(event.key === "Alt" || event.key === "Shift" || event.key === "Ctrl"){
+        return false;
+      }
+      if(letter === event.key.toLowerCase()){
+        this.success()
+      } else{
+        this.fail()
+      }
+    }
+    document.addEventListener("keyup", check)
   }
 
+  
   success() {
     if(this.currentSymbol.classList.contains("symbol_current")) this.currentSymbol.classList.remove("symbol_current");
     this.currentSymbol.classList.add('symbol_correct');
@@ -43,6 +49,7 @@ class Game {
     }
     this.setNewWord();
   }
+
 
   fail() {
     if (++this.lossElement.textContent === 5) {
