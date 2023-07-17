@@ -10,13 +10,10 @@ dropdown.addEventListener("click", function() {
 
 
 allItems.forEach((item, index) => {
-    item.addEventListener("click", function(){
+    item.addEventListener("click", function(event){
+        event.preventDefault();
         dropdown.textContent = allItems[index].textContent;
+        list.classList.remove("dropdown__list_active");
     })
 })
 
-for(let item of allItems) {
-    item.addEventListener("click", function(){
-        dropdown.textContent = allItems[index].textContent;
-    })
-}
