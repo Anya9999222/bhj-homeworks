@@ -1,11 +1,10 @@
 const form = document.querySelector(".tasks__control");
 const input = document.querySelector(".tasks__input");
-const button = document.querySelector(".tasks__add");
 const taskList = document.getElementById("tasks__list");
 
 function addTask(e) {
 	e.preventDefault();
-    if (input.value) {
+    if (input.value.trim() !== '') {
     	const toDo = document.createElement("div");
 		taskList.appendChild(toDo);
 		toDo.classList.add('task');
@@ -23,16 +22,18 @@ function addTask(e) {
 		remove.textContent = close.textContent;
 
 		toDoEl.textContent = input.value;
-		
-	}
-	const crosses = document.querySelectorAll('.task__remove');
-	for (let i = 0; i < crosses.length; i++) {
-		crosses[i].addEventListener('click', function() {
-			this.parentNode.remove()
-		})
 	}
 	form.reset()
 }
 
+function remove(event){
+	event.preventDefault();
+	let target = event.target;
+	if(target.classList.contains('task__remove')){
+		let deleted = target.closest('.task');
+		deleted.remove();
+	}
+}
 
-form.addEventListener("submit", addTask)
+form.addEventListener("submit", addTask);
+taskList.addEventListener('click', remove)
