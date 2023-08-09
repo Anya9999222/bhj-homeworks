@@ -22,19 +22,18 @@ buttonMinus.forEach((item, index) => {
 const basket = document.querySelector('.cart__products');
 const products = document.querySelectorAll('.product');
 const addButton = document.querySelectorAll('.product__add');
-let basketEl = [];
 
 function createHtml(element){
     let elId = element.getAttribute("data-id");
-    let number = element.querySelector(".product__quantity-value").textContent;
-    if(basketEl.includes(element)){
-        basketEl.forEach((item,index) => {
-            if(item.dataset.id === elId){
-                basket.children[index].querySelector(".cart__product-count").textContent = number
-            }  
-        })
+    let number = element.querySelector(".product__quantity-value");
+    let productInCart = basket.querySelector(`.cart__product[data-id="${elId}"]`);
+   
+    if(productInCart){
+        const inCart = Number(basket.querySelector(".cart__product-count").textContent);
+        let currentNumber = Number(number.textContent) + inCart;
+        productInCart.querySelector('.cart__product-count').textContent = currentNumber;
+        number.textContent = '1';
     } else{
-        basketEl.push(element);
         const cartProduct = document.createElement('div');
         basket.appendChild(cartProduct);
         cartProduct.classList.add("cart__product");
@@ -48,7 +47,8 @@ function createHtml(element){
         const count = document.createElement('div');
         cartProduct.appendChild(count);
         count.classList.add('cart__product-count');
-        count.textContent = number;
+        count.textContent = number.textContent;
+        number.textContent = '1';
     }
     
 }
