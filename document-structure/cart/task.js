@@ -26,10 +26,15 @@ const addButton = document.querySelectorAll('.product__add');
 function createHtml(element){
     let elId = element.getAttribute("data-id");
     let number = element.querySelector(".product__quantity-value");
-    let productInCart = basket.querySelector(`.cart__product[data-id="${elId}"]`);
+    let cart = Array.from(document.getElementsByClassName("cart__product"));
+    let productInCart = cart.find(e => {
+        if(e.dataset.id === elId){
+            return e;
+        }
+    });
    
     if(productInCart){
-        const inCart = Number(basket.querySelector(".cart__product-count").textContent);
+        const inCart = Number(productInCart.querySelector(".cart__product-count").textContent);
         let currentNumber = Number(number.textContent) + inCart;
         productInCart.querySelector('.cart__product-count').textContent = currentNumber;
         number.textContent = '1';
