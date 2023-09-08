@@ -1,5 +1,5 @@
 const popup = document.getElementById('subscribe-modal');
-popup.classList.add('modal_active')
+
 getCookie('popup')
 
 
@@ -7,8 +7,8 @@ function getCookie(name){
     const cookies = document.cookie.split('; ')
     console.log(cookies)
     const item = cookies.find(p => p.startsWith(name))
-    if(item){
-        popup.classList.remove('modal_active')
+    if(!item){
+        popup.classList.add('modal_active')
     }
     
 }
